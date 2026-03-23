@@ -1,0 +1,207 @@
+anpanman17@HP-Zorin18:~/Escritorio/SistDeComp/Practico #1 Rendimiento/Sudo-Make-Me-a-Sandwich-TP-s-SdC/TP1/TestProfiling-LauraSurco$ gcc -Wall -pg test_gprof.c test_gprof_new.c -o test_gprof
+anpanman17@HP-Zorin18:~/Escritorio/SistDeComp/Practico #1 Rendimiento/Sudo-Make-Me-a-Sandwich-TP-s-SdC/TP1/TestProfiling-LauraSurco$ ./test_gprof
+
+ Inside main()
+
+ Inside func1 
+
+ Inside new_func1()
+
+ Inside func2 
+anpanman17@HP-Zorin18:~/Escritorio/SistDeComp/Practico #1 Rendimiento/Sudo-Make-Me-a-Sandwich-TP-s-SdC/TP1/TestProfiling-LauraSurco$ ls gmon.out
+gmon.out
+anpanman17@HP-Zorin18:~/Escritorio/SistDeComp/Practico #1 Rendimiento/Sudo-Make-Me-a-Sandwich-TP-s-SdC/TP1/TestProfiling-LauraSurco$ gprof test_gprof gmon.out > analysis.txt
+anpanman17@HP-Zorin18:~/Escritorio/SistDeComp/Practico #1 Rendimiento/Sudo-Make-Me-a-Sandwich-TP-s-SdC/TP1/TestProfiling-LauraSurco$ cat analysis.txt
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls   s/call   s/call  name    
+ 55.98      8.05     8.05        1     8.05     8.55  func1
+ 37.00     13.37     5.32        1     5.32     5.32  func2
+  3.55     13.88     0.51                             main
+  3.48     14.38     0.50        1     0.50     0.50  new_func1
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+           else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+           function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+           the function in the gprof listing. If the index is
+           in parenthesis it shows where it would appear in
+           the gprof listing if it were to be printed.
+
+
+Copyright (C) 2012-2024 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+
+                     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 4 byte(s) for 0.07% of 14.38 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]    100.0    0.51   13.87                 main [1]
+                8.05    0.50       1/1           func1 [2]
+                5.32    0.00       1/1           func2 [3]
+-----------------------------------------------
+                8.05    0.50       1/1           main [1]
+[2]     59.5    8.05    0.50       1         func1 [2]
+                0.50    0.00       1/1           new_func1 [4]
+-----------------------------------------------
+                5.32    0.00       1/1           main [1]
+[3]     37.0    5.32    0.00       1         func2 [3]
+-----------------------------------------------
+                0.50    0.00       1/1           func1 [2]
+[4]      3.5    0.50    0.00       1         new_func1 [4]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index      A unique number given to each element of the table.
+                Index numbers are sorted numerically.
+                The index number is printed next to every function name so
+                it is easier to look up where the function is in the table.
+
+     % time     This is the percentage of the `total' time that was spent
+                in this function and its children.  Note that due to
+                different viewpoints, functions excluded by options, etc,
+                these numbers will NOT add up to 100%.
+
+     self       This is the total amount of time spent in this function.
+
+     children   This is the total amount of time propagated into this
+                function by its children.
+
+     called     This is the number of times the function was called.
+                If the function called itself recursively, the number
+                only includes non-recursive calls, and is followed by
+                a `+' and the number of recursive calls.
+
+     name       The name of the current function.  The index number is
+                printed after it.  If the function is a member of a
+                cycle, the cycle number is printed between the
+                function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self       This is the amount of time that was propagated directly
+                from the function into this parent.
+
+     children   This is the amount of time that was propagated from
+                the function's children into this parent.
+
+     called     This is the number of times this parent called the
+                function `/' the total number of times the function
+                was called.  Recursive calls to the function are not
+                included in the number after the `/'.
+
+     name       This is the name of the parent.  The parent's index
+                number is printed after it.  If the parent is a
+                member of a cycle, the cycle number is printed between
+                the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self       This is the amount of time that was propagated directly
+                from the child into the function.
+
+     children   This is the amount of time that was propagated from the
+                child's children to the function.
+
+     called     This is the number of times the function called
+                this child `/' the total number of times the child
+                was called.  Recursive calls by the child are not
+                listed in the number after the `/'.
+
+     name       This is the name of the child.  The child's index
+                number is printed after it.  If the child is a
+                member of a cycle, the cycle number is printed
+                between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+
+Copyright (C) 2012-2024 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+
+Index by function name
+
+   [2] func1                   [1] main
+   [3] func2                   [4] new_func1
+anpanman17@HP-Zorin18:~/Escritorio/SistDeComp/Practico #1 Rendimiento/Sudo-Make-Me-a-Sandwich-TP-s-SdC/TP1/TestProfiling-LauraSurco$ perf record ./test_gprof
+Missing support for build id in kernel mmap events.
+Disable this warning with --no-buildid-mmap
+Error:
+Access to performance monitoring and observability operations is limited.
+Consider adjusting /proc/sys/kernel/perf_event_paranoid setting to open
+access to performance monitoring and observability operations for processes
+without CAP_PERFMON, CAP_SYS_PTRACE or CAP_SYS_ADMIN Linux capability.
+More information can be found at 'Perf events and tool security' document:
+https://www.kernel.org/doc/html/latest/admin-guide/perf-security.html
+perf_event_paranoid setting is 4:
+  -1: Allow use of (almost) all events by all users
+      Ignore mlock limit after perf_event_mlock_kb without CAP_IPC_LOCK
+>= 0: Disallow raw and ftrace function tracepoint access
+>= 1: Disallow CPU event access
+>= 2: Disallow kernel profiling
+To make the adjusted perf_event_paranoid setting permanent preserve it
+in /etc/sysctl.conf (e.g. kernel.perf_event_paranoid = <setting>)
+anpanman17@HP-Zorin18:~/Escritorio/SistDeComp/Practico #1 Rendimiento/Sudo-Make-Me-a-Sandwich-TP-s-SdC/TP1/TestProfiling-LauraSurco$ sudo perf record ./test_gprof
+[sudo] contraseña para anpanman17:         
+
+ Inside main()
+
+ Inside func1 
+
+ Inside new_func1()
+
+ Inside func2 
+[ perf record: Woken up 8 times to write data ]
+[ perf record: Captured and wrote 2,403 MB perf.data (62379 samples) ]
+anpanman17@HP-Zorin18:~/Escritorio/SistDeComp/Practico #1 Rendimiento/Sudo-Make-Me-a-Sandwich-TP-s-SdC/TP1/TestProfiling-LauraSurco$ sudo perf report
+File perf.data not owned by current user or root (use -f to override)
