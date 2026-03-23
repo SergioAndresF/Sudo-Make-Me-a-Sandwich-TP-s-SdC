@@ -7,5 +7,5 @@ Teachers:
 
 Participants:
 - Enzo Leonel Laura Surco
-- Sergio Andres Segovia
+- Sergio Andres Fernandez Segovia
 - Saqib Daniel Mohammad
